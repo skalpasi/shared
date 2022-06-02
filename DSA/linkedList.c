@@ -243,6 +243,5 @@ int main() {
 
   reverse(&head);
   printf("\nList after reversing the data: ");
-  pnintList();
   return 0;
 }
