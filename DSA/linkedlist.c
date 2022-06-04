@@ -9,24 +9,24 @@
 struct Node {
   int data;
   struct Node *next; // self referential struct
-} *head = NULL, *current;
-void append(struct Node *p, int item) {
-  p->data = item;
-  p->next = NULL;
-  p = current;
+} *head = NULL, *current = NULL;
+void append(struct Node *link, int item) {
+  link = (struct Node *)malloc(sizeof(struct Node));
+  link->data = item;
+  link->next = NULL;
+  current->next = link;
 }
 void display(struct Node *p) {
+  printf("%d", p->next);
   while (p->next) {
     printf("%d", p->data);
     p = p->next;
   }
 }
 int main() {
-  head = (struct Node *)malloc(sizeof(struct Node));
-  current = head;
   append(current, 10);
-  append(current, 20);
-  append(current, 30);
-  display(head);
+  // append(current, 20);
+  // append(current, 30);
+  // display(current);
   return 0;
 }
