@@ -5,28 +5,55 @@
 // (0x200) -> (3 | 0x221) -> (6 | NULL)
 //  0x100    0x200          0x221
 // every node contains a value and pointer
-// to nextnode. 3 is at 0x200 and 4 is at 0x221
+// to next node. 3 is at 0x200 and 4 is at 0x221
 struct Node {
   int data;
   struct Node *next; // self referential struct
-} *head = NULL, *current = NULL;
-void append(struct Node *link, int item) {
-  link = (struct Node *)malloc(sizeof(struct Node));
+} *head = NULL, *last = NULL;
+void append(int item) {
+  struct Node *link = (struct Node *)malloc(sizeof(struct Node));
   link->data = item;
   link->next = NULL;
-  current->next = link;
+  if (head == NULL) {
+    last = (struct Node *)malloc(sizeof(struct Node));
+    head = link;
+    head->next = link;
+  }
+  last->next = link;
+  last = link;
 }
-void display(struct Node *p) {
-  printf("%d", p->next);
-  while (p->next) {
-    printf("%d", p->data);
-    p = p->next;
+void insert(int index, int item) {
+  struct Node *node = (struct Node *)malloc(sizeof(struct Node));
+  if (index == 0) {
+    node->next = head;
+    head = node;
+  } else {
+    struct Node *it = head;
+    for (int i = 0; i < index - 1; i++) {
+      it = it->next;
+    }
+    // todo
+  }
+  node->data = item;
+}
+void delete (int index) {
+  // this function will
+  // delete the node
+}
+void display() {
+  struct Node *it = head;
+  while (it) {
+    printf("%d ", it->data);
+    it = it->next;
   }
 }
 int main() {
-  append(current, 10);
-  // append(current, 20);
-  // append(current, 30);
-  // display(current);
+  append(10);
+  append(20);
+  append(40);
+  append(50);
+  // insert(0, 100);
+  insert(2, 100);
+  display();
   return 0;
 }
