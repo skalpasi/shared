@@ -21,7 +21,6 @@ void display() {
     printf("%d ", it->data);
     it = it->next;
   }
-  printf("size %d\n", head->size);
 }
 
 void append(int item) {
@@ -60,18 +59,18 @@ void insert(int index, int item) {
   head->size++;
 }
 
-void insertIfSorted(int item) {
+void insertIfSorted(int num) {
   if (head == NULL)
     return;
   struct Node *it = head->next;
   while (1) {
-    if (it->next == NULL || it->data <= item && it->next->data >= item) {
+    if (it->data <= num && it->next->data >= num) {
       break;
     }
     it = it->next;
   }
   struct Node *link = (struct Node *)malloc(sizeof(struct Node));
-  link->data = item;
+  link->data = num;
   link->next = it->next;
   it->next = link;
   head->size++;
@@ -99,15 +98,15 @@ void deleteFirst(int item) { delete (0); }
 void clear() { head = NULL; }
 
 int main() {
+  delete (0);
+  insert(1, 1);
+  append(3);
+  append(7);
+  append(9);
   append(15);
-  display();
-  insert(1, 4);
-  display();
-  delete (1);
-  display();
+  append(20);
   append(32);
-  display();
-  insertIfSorted(33);
+  insertIfSorted(18);
   display();
   return 0;
 }
