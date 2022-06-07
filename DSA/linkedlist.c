@@ -9,19 +9,16 @@
 
 struct Node {
   int data;
-  int size;
   struct Node *next; // self referential struct
 } *head = NULL, *last = NULL;
-
 void display() {
   if (head == NULL)
     return;
-  struct Node *it = head->next; // head->next has first node
+  struct Node *it = head; // head->next has first node
   while (it) {
     printf("%d ", it->data);
     it = it->next;
   }
-  printf("size %d\n", head->size);
 }
 
 void append(int item) {
@@ -31,33 +28,31 @@ void append(int item) {
   if (head == NULL) {
     head = (struct Node *)malloc(sizeof(struct Node));
     last = (struct Node *)malloc(sizeof(struct Node));
-    head->next = link;
+    head = link;
   }
   last->next = link;
   last = link;
-  head->size++;
 }
 
 void insert(int index, int item) {
-  if (head == NULL || index > head->size)
+  if (head == NULL)
     return;
   struct Node *node = (struct Node *)malloc(sizeof(struct Node));
+  node->data = item;
   if (index == 0) {
-    node->next = head->next;
-    head->next = node;
+    node->next = head;
+    head = node;
   } else {
-    struct Node *it = head->next;
+    struct Node *it = head;
     for (int i = 0; i < index - 1; i++) {
       it = it->next;
+    }
+    if (!it->next) {
+      last = node;
     }
     node->next = it->next;
     it->next = node;
   }
-  node->data = item;
-  if (index == head->size) {
-    last = node;
-  }
-  head->size++;
 }
 
 void insertIfSorted(int item) {
@@ -74,22 +69,20 @@ void insertIfSorted(int item) {
   link->data = item;
   link->next = it->next;
   it->next = link;
-  head->size++;
 }
 
 void delete (int index) {
-  if (head == NULL || index >= head->size)
+  if (head == NULL)
     return;
-  struct Node *it = head->next;
+  struct Node *it = head;
   if (index == 0) {
-    head->next = head->next->next;
+    head = head->next;
     return;
   }
   for (int i = 0; i < index - 1; i++) {
     it = it->next;
   }
   it->next = it->next->next;
-  head->size--;
 }
 
 void insertFirst(int item) { insert(0, item); }
@@ -100,14 +93,9 @@ void clear() { head = NULL; }
 
 int main() {
   append(15);
-  display();
-  insert(1, 4);
-  display();
-  delete (1);
-  display();
   append(32);
-  display();
-  insertIfSorted(33);
+  insert(2, 100);
+  delete (2);
   display();
   return 0;
 }
