@@ -13,42 +13,30 @@ void enqueue(struct Queue *q, int item) {
 }
 void dequeue(struct Queue *q) {
   if (q->rear != q->front) {
-    q->front++;
+    printf("Dequeue -> %d\n", q->Q[++q->front]);
   }
 }
 void display(struct Queue q) {
   for (int i = q.front + 1; i <= q.rear; i++) {
-    printf("%d  ", q.Q[i]);
+    printf("%d ", q.Q[i]);
   }
   printf("\n");
-  // for (int i = 0; i < q.size; i++) {
-  //   if (i == q.front) {
-  //     printf("F ");
-  //   } else if (i == q.rear) {
-  //     printf("R ");
-  //   } else {
-  //     printf("  ");
-  //   }
-  //   printf("  ");
-  // }
-  // printf("\n");
 }
 int main() {
   queue.size = 10;
   queue.front = -1;
   queue.rear = -1;
   queue.Q = (int *)malloc(queue.size * sizeof(int));
-  while (1) {
-    int choice;
-    scanf("%d", &choice);
-    if (choice == 1) {
-      int item;
-      scanf("%d", &item);
-      enqueue(&queue, item);
-    } else if (choice == 2) {
-      dequeue(&queue);
-    }
-    display(queue);
-  }
+  dequeue(&queue);
+  enqueue(&queue, 10);
+  enqueue(&queue, 20);
+  enqueue(&queue, 30);
+  enqueue(&queue, 40);
+  enqueue(&queue, 50);
+  dequeue(&queue);
+  enqueue(&queue, 60);
+  dequeue(&queue);
+  enqueue(&queue, 70);
+  display(queue);
   return 0;
 }
