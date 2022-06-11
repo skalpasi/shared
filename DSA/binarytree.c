@@ -21,12 +21,15 @@ struct Node *init() {
   node->right = init();
   return node;
 }
-void display(struct Node *root) {
-  printf("%d", root->data);
-  return;
+void preorder(struct Node *root) {
+  if (root == NULL)
+    return;
+  printf("%d ", root->data);
+  preorder(root->left);
+  preorder(root->right);
 }
 int main() {
   root = init();
-  display(root);
+  preorder(root);
   return 0;
 }
