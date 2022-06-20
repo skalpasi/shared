@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Linked List - [3,4]
+// Circular Linked List - [3,4]
 // head      data  next    data  next
-// (0x200) -> (3 | 0x221) -> (6 | NULL)
+// (0x200) -> (3 | 0x221) -> (6 | 0x100)
 //  0x100    0x200          0x221
 // every node contains a value and pointer
 // to next node. 3 is at 0x200 and 4 is at 0x221
@@ -17,16 +17,18 @@ void display() {
   if (head == NULL)
     return;
   struct Node *it = head; // head->next has first node
-  while (it) {
+  int c = 0;
+  while (it != head || c == 0) {
     printf("%d ", it->data);
     it = it->next;
+    c = 1;
   }
 }
 
 void append(int item) {
   struct Node *link = (struct Node *)malloc(sizeof(struct Node));
   link->data = item;
-  link->next = NULL;
+  link->next = head;
   if (head == NULL) {
     head = (struct Node *)malloc(sizeof(struct Node));
     last = (struct Node *)malloc(sizeof(struct Node));
@@ -97,7 +99,6 @@ int main() {
   append(15);
   append(32);
   insert(2, 100);
-  delete (2);
   display();
   return 0;
 }

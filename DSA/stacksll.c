@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Structure to create a node with data and next pointer
 struct Node {
   int data;
   struct Node *next;
 } *top = NULL;
 
-// Push() operation on a  stack
 void push(int value) {
   struct Node *newNode;
   newNode = (struct Node *)malloc(sizeof(struct Node));
