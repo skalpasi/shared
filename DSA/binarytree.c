@@ -49,6 +49,19 @@ void postorder(BST *root) {
   printf("%d ", root->data);
 }
 
+BST *search(BST *root, int item) {
+  BST *curr = root;
+  while (curr != NULL) {
+    if (curr->data > item)
+      curr = curr->left;
+    else if (curr->data < item)
+      curr = curr->right;
+    else
+      return curr;
+  }
+  return NULL;
+}
+
 void insert(BST **root, int item) {
   BST *node = malloc(sizeof(BST));
   node->data = item;
@@ -79,6 +92,11 @@ int main() {
   insert(&root, 38);
   insert(&root, 50);
   insert(&root, 10);
+  // printf("%d ", search(root, 20)->data);
+  printf("%d ", search(root, 38)->data);
+  printf("%d ", search(root, 50)->data);
+  printf("%d ", search(root, 100)->data);
+  printf("\n");
   inorder(root);
   return 0;
 }
